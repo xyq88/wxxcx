@@ -1,0 +1,12 @@
+
+.row {
+	display: flex;
+
+  }
+  .col {
+	width: 10%;
+	height: 32px;
+	text-align: center;
+	line-height: 30px;
+	border: 1px solid #ccc;
+  }

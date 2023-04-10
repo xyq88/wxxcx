@@ -1,0 +1,51 @@
+
+<view>
+  <text style="font-size: 30px;margin-left: 120px;margin-right: 20px;">扫雷</text>
+<text>剩余雷数：{{remainLandmine}}</text>
+<view style="height: 30px;display: flex;">
+  <text>列数</text>
+  <view style="width: 80%; height: 100%; margin-left: 10px;">
+    <slider bindchange="onRowChange" min="5" max="20" value="{{ROWS}}" show-value block-size="20"/>
+  </view>
+</view>
+<view style="height: 30px;display: flex;">
+  <text>行数</text>
+  <view style="width: 80%; height: 100%; margin-left: 10px;">
+    <slider bindchange="onColChange" min="5" max="20" value="{{COLS}}" show-value block-size="20"/>
+  </view>
+</view>
+<view style="height: 30px;display: flex;">
+  <text>雷数</text>
+  <view style="width: 80%; height: 100%; margin-left: 10px;">
+    <slider bindchange="onLandmineChange" min="1" max="{{ROWS*COLS-1}}" value="{{count}}" show-value block-size="20"/>
+  </view>
+</view>
+</view>
+<view style="display: flex; justify-content: center;">
+  <block wx:for="{{arr}}" wx:for-item="row" wx:for-index="i">
+    <view >
+      <block wx:for="{{row}}" wx:for-item="col" wx:for-index="j" class="row">
+        <view style="background-color: {{showArr[i][j]==-1? '#FFFFFF' : '#C0C0C0'}};border: 1px solid #ccc;height: {{320/ROWS-3>320/COLS-3 ? 320/COLS-3 : 320/ROWS-3}}px;width: {{(320/ROWS-3>320/COLS-3) ? 320/COLS-3 : 320/ROWS-3 }}px;"
+bindtap="bindshow"
+data-i="{{i}}" data-j="{{j}}" >      
+  <text class="cell" wx:if="{{arr[i][j]!==101&&arr[i][j]!==0&&arr[i][j]!==100&&showArr[i][j]==-1}}" class="cell"
+  data-i="{{i}}" data-j="{{j}}">{{arr[i][j]}}</text>
+  <image style="height: {{320/ROWS-3>320/COLS-3 ? 320/COLS-3:320/ROWS-3}}px;width: {{(320/ROWS-3>320/COLS-3) ? 320/COLS-3 : 320/ROWS-3 }}px;" data-i="{{i}}" data-j="{{j}}"
+   wx:if="{{arr[i][j]==100&&showArr[i][j]==-1}}" src="../image/baozha.png" mode=""/>
+  <!-- <text class="cell" wx:if="{{showArr[i][j]==-1}}" class="cell"
+  data-i="{{i}}" data-j="{{j}}">{{arr[i][j]}}</text> -->
+  <image style="height: {{320/ROWS-3>320/COLS-3 ? 320/COLS-3:320/ROWS-3}}px;width: {{(320/ROWS-3>320/COLS-3) ? 320/COLS-3 : 320/ROWS-3 }}px;" data-i="{{i}}" data-j="{{j}}"
+   wx:if="{{showArr[i][j]==1}}" src="../image/hongqi.png" mode=""/>
+</view>
+</block>
+    </view>
+  </block>
+</view>
+<view style="display: flex;">
+<switch  bindchange="switchChange" style="margin-left: 30%;"/>
+<image wx:if="{{!switchValue}}" src="../image/chanzi.png" 
+style="width: 32px;height: 32px;" mode=""/>
+<image wx:if="{{switchValue}}" src="../image/hongqi.png" 
+style="width: 32px;height: 32px;" mode=""/>
+<button style="width: 300rpx; " type="primary" bindtap="reStart">重新开始</button>
+</view>
